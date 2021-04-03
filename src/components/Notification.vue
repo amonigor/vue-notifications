@@ -5,11 +5,8 @@
             <p>{{ title }}</p>
         </div>
         <div class="vn-body">
-            <img src="@/assets/logo.png" />
-            <p>
-                Duis nulla amet elit proident et fugiat dolor id excepteur Lorem
-                sint exercitation magna.
-            </p>
+            <img v-if="image" :src="image" />
+            <p>{{ content }}</p>
         </div>
     </div>
 </template>
@@ -18,7 +15,6 @@
 export default {
     name: "Notification",
     props: {
-        // Values props
         title: {
             type: String,
             required: true,
@@ -28,8 +24,14 @@ export default {
             type: String,
             required: false,
         },
-
-        // Styling props
+        image: {
+            type: String,
+            required: false,
+        },
+        content: {
+            type: String,
+            required: true,
+        },
         mainColor: {
             type: String,
             required: false,
@@ -40,29 +42,53 @@ export default {
             required: false,
             default: "#cecece",
         },
+        fontFamily: {
+            type: String,
+            required: false,
+            default: "Avenir, Helvetica, Arial, sans-serif",
+        },
+        fontColor: {
+            type: String,
+            required: false,
+            default: "#000000",
+        },
+        border: {
+            type: Object,
+            required: false,
+            default: function () {
+                return {
+                    size: "0px",
+                    type: "solid",
+                    color: "#cecece",
+                    radius: "5px"
+                };
+            },
+        },
     },
     computed: {
         vnVars() {
             return {
                 "--main-color": this.mainColor,
                 "--background-color": this.backgroundColor,
-                "--border-radius": "10px",
+                "--font-family": this.fontFamily,
+                "--font-color": this.fontColor,
+                "--border": `${this.border.size} ${this.border.type} ${this.border.color}`,
+                "--border-radius": `${this.border.radius}`,
             };
         },
     },
     methods: {
-        vnRedirect() {
-
-        }
-    }
-}
+        vnRedirect() {},
+    },
+};
 </script>
 
 <style lang="scss">
 .vn-notification {
     width: 350px;
     padding: 10px;
-    border-radius: 5px;
+    border: var(--border);
+    border-radius: var(--border-radius);
     background-color: var(--background-color);
     cursor: pointer;
     opacity: 0.9;
@@ -89,10 +115,12 @@ export default {
         img {
             width: 20px;
             height: 20px;
-            margin-right: 10px;
+            margin-right: 5px;
         }
 
         p {
+            font-family: var(--font-family);
+            color: var(--font-color);
             font-weight: bold;
             font-size: 0.75em;
             opacity: 0.75;
@@ -109,10 +137,12 @@ export default {
             border-radius: 100%;
             object-fit: cover;
             margin-right: 10px;
-            background-color: #000000;
+            background-color: var(--main-color);
         }
 
         p {
+            font-family: var(--font-family);
+            color: var(--font-color);
             text-align: left;
             font-size: 0.9em;
         }

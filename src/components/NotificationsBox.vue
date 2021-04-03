@@ -4,8 +4,15 @@
             <Notification
                 v-for="(notification, idx) in notifications"
                 :key="(idx+1)"
-                :title="notification.title"
                 :icon="notification.icon"
+                :title="notification.title"
+                :image="notification.image"
+                :content="notification.content"
+                :main-color="notification.mainColor"
+                :background-color="notification.backgroundColor"
+                :font-family="notification.fontFamily"
+                :font-color="notification.fontColor"
+                :border="notification.border"
             />
         </transition-group>
     </div>
@@ -21,7 +28,7 @@ export default {
         position: {
             type: String,
             required: false,
-            default: "top-center",
+            default: "bottom-right",
         },
         notifications: {
             type: Array,
@@ -35,6 +42,7 @@ export default {
 .vn-box {
     display: flex;
     position: absolute;
+    z-index: 999;
 
     &.vn-top-center,
     &.vn-bottom-center {

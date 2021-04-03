@@ -1,7 +1,8 @@
 <template>
     <div id="app">
-
-        <button class="vn-button" @click.prevent="generateNotification">Generate Notification</button>
+        <button class="vn-button" @click.prevent="generateNotification">
+            Generate Notification
+        </button>
 
         <NotificationsBox
             position="bottom-right"
@@ -18,16 +19,30 @@ export default {
     data() {
         return {
             vnNotifications: [],
-        }
+        };
     },
     components: { NotificationsBox },
     methods: {
         generateNotification() {
             this.vnNotifications.push(
                 {
-                    title: "Vue notification" + Math.floor(Math.random() * 10),
-                    icon: require('@/assets/logo.png'),
-                },
+                    title: "Vue notification " + Math.floor(Math.random() * 10),
+                    icon: require("@/assets/logo.png"),
+                    image: require("@/assets/logo.png"),
+                    content:
+                        "Fugiat eiusmod proident elit excepteur quis officia aute labore minim quis " +
+                        Math.floor(Math.random() * 10),
+                    // mainColor: "#42b883",
+                    // backgroundColor: "#42b883",
+                    // fontColor: "#ffffff",
+                    // fontFamily: "'Patua One', cursive",
+                    // border: {
+                    //     size: "5px",
+                    //     type: "solid",
+                    //     color: "red",
+                    //     radius: "15px",
+                    // },
+                }
             );
 
             this.removeNotification();
@@ -37,12 +52,14 @@ export default {
             setTimeout(() => {
                 this.vnNotifications.shift();
             }, 3000);
-        }
-    }
+        },
+    },
 };
 </script>
 
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Patua+One&display=swap");
+
 * {
     margin: 0;
     padding: 0;
